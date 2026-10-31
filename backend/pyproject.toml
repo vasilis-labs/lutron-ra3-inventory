@@ -122,6 +122,9 @@ test_requires = [
 universal_build = true
 min_os_version = "12.0"
 requires = [
+    # cryptography 49+ ships arm64-only macOS wheels; 48.x is the last with
+    # universal2 wheels, which universal_build needs for the x86_64 slice.
+    "cryptography < 49",
     "pyobjc-core >= 10.3",
     "pyobjc-framework-Cocoa >= 10.3",
     "pyobjc-framework-Security >= 10.3",
@@ -197,6 +200,7 @@ indent-style = "space"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
 addopts = [
     "--strict-markers",
     "--strict-config",
